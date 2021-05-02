@@ -1,0 +1,26 @@
+<app>
+	<integer name="x" />
+	<func signal="main">
+		<print>
+			Enter an integer
+		</print>
+		<read_input>
+			<variable name="x" />
+			<read_input />
+			<calculateDivisors variable="x1" />
+		</read_input>
+	</func>
+	<func name="_calculate" signal="signal.calculateDivisors">
+		<integer name="i" initial_value="0" />
+		<while>
+			<expression iterator="i" intial_statement="0" condition="<=" final_statement="x">
+				<if condition="n % i == 0">
+					<print>
+						<variable name="i" />
+					</print>
+				</if>
+			</expression>
+			<add variable="i" value="1" />
+		</while>
+	</func>
+</app>
