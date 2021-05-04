@@ -2,8 +2,11 @@ FROM python:3.9
 
 WORKDIR /src
 COPY . ./src
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip3 install -r requirements.txt
 ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development 
-CMD [ "python3", "app.py" ]
+EXPOSE 5000
+EXPOSE 27017
+CMD [ "flask", "run" ]
