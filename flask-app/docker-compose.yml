@@ -1,11 +1,9 @@
-version: "1"
+version: "3.8"
 services:
-  mongodb:
-    image: mongo:latest
-    restart: unless-stopped
-    command: mongod
+  mongo:
+    image: "mongo:latest"
     ports:
-      - "27017:27017"
+     - "27017:27017"
   web:
     build: .
     ports:
@@ -15,3 +13,4 @@ services:
     environment:
       FLASK_ENV: development
       FLASK_APP: ./src/app.py
+      FLASK_RUN_HOST: 0.0.0.0

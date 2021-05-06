@@ -8,5 +8,4 @@ def create_task(cmd):
 
 def get_task(taskid):
     task = app.mongo.db.task.find_one({"_id":taskid})
-    print(task)
     return task

@@ -9,4 +9,4 @@ ENV FLASK_RUN_HOST=0.0.0.0
 ENV FLASK_ENV=development 
 EXPOSE 5000
 EXPOSE 27017
-CMD [ "flask", "run" ]`
+CMD [ "flask", "run" ]
