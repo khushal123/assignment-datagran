@@ -1,11 +1,8 @@
 import asyncio
 import subprocess
-from pymongo import MongoClient
+import time
 
-
-client = MongoClient('localhost', 27017)
-db = client.datagran
-
+db = None
 
 def update_task(id, data):
     update = db.task.update_one({
@@ -13,7 +10,6 @@ def update_task(id, data):
     }, {
         "$set": data
     })
-
 
 async def execute_command(cmd, id):
     proc = await asyncio.create_subprocess_shell(
@@ -49,16 +45,23 @@ async def execute_command(cmd, id):
 #         asyncio.run(execute_command(cmd, id))
 
 
-async def actual_task(taskid):
+def actual_task(taskid, db):
+    globals()['db'] = db
+    print(db)
     task = db.task.find_one({
         "_id": taskid
     })
     id = task.get("_id")
+    print("updating status")
     update_task(id, {
         "status": "running"
     })
+    
     cmd = task.get("cmd")
+    print("running command")
     asyncio.run(execute_command(cmd, id))
+    time.sleep(1)
+    
 
 # update_tasks = db.task.update_many({
 #     "_id": {"$in": update_ids}
